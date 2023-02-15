@@ -1,0 +1,23 @@
+
+@mixin block($heading-color, $btnBg) {
+    background-color: $color-primary;
+    border: 1px solid #c7c7c7;
+    padding: 15px;
+    border-radius: 5px;
+    width: 400px;
+    h2{
+        font-size: 30px;
+        margin: 0;
+        color: $heading-color;
+    }
+
+    a{
+        background: $btnBg;
+     color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 5px;
+    display: inline-block;
+    }
+}

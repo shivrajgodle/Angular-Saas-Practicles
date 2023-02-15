@@ -1,0 +1,346 @@
+/* You can add global styles to this file, and also import other style files */
+//variables
+@import 'assets/scss/base';
+@import 'assets/scss/variables';
+@import 'assets/scss/typography';
+@import 'assets/scss/utility';
+@import 'assets/scss/mixin';
+
+
+// .card{
+//     background-color: $color-primary;
+//     height: 200px;
+//     width: 300px;
+//     padding: 15px;
+//     font-family: Arial, Helvetica, sans-serif;
+
+//     .heading{
+//         color: $color-white;
+//         font-size: 18px;
+//     }
+
+//     .p{
+//         color: #ddd;
+//         font-size: 12px;
+//     }
+// }
+
+//mapget
+
+$colors:(
+    blue-color : blue,
+    yello-color: yellow,
+    green-color: green
+);
+
+
+.box1{
+    font-family: 'Roboto' , sans-serif;
+   // background-color: map-get($colors , green-color);
+   @include block(#424242,#42ba3d)
+}
+
+.box1 p{
+    font-size: 14px;
+    color: black;
+}
+
+
+
+.box1 a:hover{
+    background-color: lighten($color-primary, $amount: 15%);
+}
+
+.box2{
+    font-family: 'Roboto' , sans-serif;
+   // background-color: map-get($colors , green-color);
+   @include block(#424242,#79ba3d);
+   border-top: 5px solid red;  
+}
+
+.box2 p{
+    font-size: 14px;
+    color: black;
+}
+
+
+ul{
+    list-style-type: square;
+    li{
+        padding: 15px;
+        a{
+            background-color: rgb(247, 187, 84);
+            display: inline-block;
+            padding: 10px;
+            color: #fff;
+
+            &:hover{
+                background-color: green
+            }
+        }
+        &:first-child{
+            border: 5px solid bisque;
+        }
+    }
+}
+
+ //placeholder
+%box{
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.greenbox{
+    @extend %box;
+    background: green;
+    font-family: 'Roboto' , sans-serif;
+}
+
+.yellobox{
+    @extend %box;
+    background: yellow;
+}
+
+@function sum($val1 , $val2){
+    @return $val1 + $val2;
+}
+.function{
+    background: red;
+    border: 1px solid red;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #fff;
+    font-size: sum(10,3)*1px;
+}
+
+.function:hover{
+    // background: darken($color: #4325d8, $amount: 15%);
+    background: mix( #df4848, #5330f3, $weight: 0.5)
+}
+
+//interpolation
+
+// $side: right;
+// $value: 100;
+
+// .gap-left-50{
+//     margin-left: 50;
+// }
+
+// .gap-#{$side}-#{$value}{
+//     margin-#{$side} :50px;
+// }
+
+@mixin gap($side , $value , $pro){
+    #{$pro}-#{$side} : $value + px
+}
+
+.class2{
+    @include gap(left , 70, padding)
+}
+
+.class3{
+    @include gap(right , 150 , margin)
+}
+
+//saas if else condition
+// @if
+// @Else
+
+//Case 1
+// $value: high;
+// .myClass{
+//     @if $value == high {margin: 100px}
+//     @else if $value == low {margin: 50px}
+//     @else{margin: 20px}
+// }
+
+//Case2
+
+@mixin myStyle($value){
+    @if $value > 100 {color : red}
+    @else if $value > 200 {margin: blue}
+    @else {margin: yellow}
+}
+
+.myClass{
+    @include myStyle(101)
+}
+
+//case 3
+
+@function getFontSize($type){
+
+    @if $type == header{
+        @return 30px;
+    }
+    @else if $type == footer{
+        @return 20px;
+    }
+    @else {
+        @return 10px;
+    }
+}
+
+header{
+    font-size: getFontSize(header);
+}
+
+footer{
+    font-size: getFontSize(footer);
+}
+
+body{
+    font-size: getFontSize(body);
+}
+
+//case 4
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+@mixin box($boxStyle){
+    @if $boxStyle == dark{
+        background : black;
+        color: #fff;
+    }
+    @if $boxStyle == light{
+        background : rgb(248, 155, 155);
+        color: rgb(14, 12, 12);
+    }
+}
+
+.myClass{
+    width: 200px;
+    border-radius: 5px;
+    margin: 100px;
+    padding: 25px;
+    @include box(light)
+}
+
+
+// sass for loop
+
+@for $i from 1 through 5{
+    .box-#{$i * 100}{
+        width: #{$i * 100}px;
+        background: darken(rgb(252, 88, 115) , $i *10%);
+    }
+}
+
+//sass each loop
+
+//case1 
+
+// $devices : desktop , tablet , mobile;
+ 
+// @each $activeDevice in $devices{
+
+//     .#{$aciveDevice}{
+//         background: url(images/baner-#{$activeDevice}.jpg);
+//     }
+// }
+
+//case 2
+
+// $devices : (desktop:50px , tablet:30px , mobile:20px);
+ 
+// @each $activeDevice , $font-size in $devices{
+
+//     .#{$activeDevice}{
+//         // background: url(src\assets\image\baner-#{$activeDevice}.jpg);
+//         font-size: $font-size;
+//     }
+// }
+
+// sass while loop
+
+// $i : 1;
+// @while $i < 4{
+//     .myClass{
+//         width: 100px;
+//     }
+//     $i: $i + 1
+// }
+
+// $i : 1;
+// @while $i < 4{
+//     .col-md-#{$i}{
+//         width: #{$i * 20px};
+//     }
+//     $i: $i + 1
+// }
+
+
+//Sass content
+
+@mixin myMixin{
+    font-size: 24px;
+    @content;
+}
+
+.class1{
+    @include myMixin(){
+        color: red
+    }
+}
+
+.class2{
+    @include myMixin();
+}
+
+
+@mixin device($breakpoint){
+
+    @if $breakpoint == tab-land{
+        @media(max-width:1200px)  {
+            @content;
+        }
+    }
+
+    @if $breakpoint == tab-port{
+        @media(max-width:900px)  {
+            @content;
+        }
+    }
+
+    @if $breakpoint == mobile{
+        @media(max-width:600px)  {
+            @content;
+        }
+    }
+    
+}
+
+
+
+body{
+    // background: red;
+
+    // @media (max-width:1200px) {
+    //     background: #5330f3;
+    // }
+
+    // @media (max-width:900px) {
+    //     background: #5bf314;
+    // }
+
+    // @media (max-width:600px) {
+    //     background: #383d36;
+    // }
+
+    @include device(tab-land){
+        background: green;
+    }
+
+    @include device(tab-port){
+        background: yellow;
+    }
+
+    @include device(mobile){
+        background: blue;
+    }
+}
